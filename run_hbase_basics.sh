@@ -14,17 +14,24 @@ CLASSPATH+=target/scala-2.10/hbase_basics_2.10-0.1-SNAPSHOT.jar
 # Add in the mapR FS jar
 
 CLASSPATH+=:/opt/mapr/lib/maprfs-1.0.3-mapr-3.0.3.jar
-#add in mapR hbase jar
-CLASSPATH+=:/opt/mapr/hbase/hbase-0.94.17/hbase-0.94.17-mapr-1403-SNAPSHOT.jar
+#add in mapR hbase jars, and other mapR hadoop jars.
+
+
+for jar in `find /opt/mapr/hbase -name '*.jar'`;do
+        CLASSPATH+=:$jar
+done
+for jar in `find /opt/mapr/hadoop -name '*.jar'`;do
+        CLASSPATH+=:$jar
+done
 
 
 
 
 #next, grab jars from mapR spark + shark folders
 
-for jar in `find $SPARK_HOME -name '*.jar'`; do
-	CLASSPATH+=:$jar
-done
+# for jar in `find $SPARK_HOME -name '*.jar'`; do
+# 	CLASSPATH+=:$jar
+# done
 
 # for jar in `find $SHARK_HOME/lib_managed -name '*.jar'`; do
 # 	CLASSPATH+=:$jar
